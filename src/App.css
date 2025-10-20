@@ -1,0 +1,103 @@
+body {
+    overflow: hidden;
+}
+
+/* Full-page layout: three columns via flex */
+.game-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center; /* left | center | right */
+  gap: 1.25rem;
+
+  height: 100vh;
+  width: 100vw;
+  background-color: #222;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  padding: 1rem; /* optional breathing room */
+}
+
+/* LEFT: Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+  min-width: 140px;   /* keep a stable column width */
+  max-width: 14vw;
+}
+
+/* Nav button sizing: avoid vw/vh so buttons don’t shrink oddly */
+.nav-btn {
+  width: 12rem;
+  height: 3rem;
+  /*padding: 0.75rem 1rem; */
+  font-size: 1rem;
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.nav-btn:hover { background: #444; transform: translateY(-2px); }
+
+/* CENTER: Canvas column (flex-1 so it grows, with content centered) */
+.game-center {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;   /* canvas on top, score below */
+  /*align-items: center;      /* center horizontally */
+  justify-content: center;  /* center vertically within column */
+  min-width: 0;             /* prevent overflow from flex children */
+}
+
+/* Canvas */
+.game-canvas {
+  border: 1px solid rgb(113, 113, 113);
+  background: #4b4b4bff;
+  width: 75vw;
+  height: 80vh;
+  display: block;
+}
+
+/* Score text under the canvas, centered by the parent’s alignment */
+.game-center > h3 {
+  margin: 0.5rem 0 0;
+  font-weight: 600;
+}
+
+.shop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* was: flex-start */
+  justify-content: center;
+  gap: 1rem;
+  z-index: 1;
+  min-width: 160px;
+  max-width: 18vw;
+  text-align: center;       /* centers the <h2> text too */
+}
+
+/* Optional small-screen stacking */
+@media (max-width: 800px) {
+  .game-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sidebar, .shop {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .game-canvas {
+    width: 92vw;
+    height: 60vh;
+  }
+}
