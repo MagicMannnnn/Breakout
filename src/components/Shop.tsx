@@ -37,7 +37,7 @@ export default function Shop({
   function increaseDamage() {
     if (!gameManager) return;
     // simple pricing: same as buyBall; tweak if you want e.g. cost = gameManager.getBallDamage()
-    const cost = ((gameManager?.getBallDamage() ?? 0) + 1) ** 2;
+    const cost = Math.floor((((gameManager?.getBallDamage() ?? 0) + 1) ** 2) / 2);
     if (coins >= cost) {
       setCoins((prev) => prev - cost);
       gameManager.coins -= cost;
@@ -54,7 +54,7 @@ export default function Shop({
       </button>
 
       <button onClick={increaseDamage} className="nav-btn">
-        Increase Future Ball Damage ({((gameManager?.getBallDamage() ?? 0) + 1) ** 2}💰)
+        Increase Future Ball Damage ({Math.floor((((gameManager?.getBallDamage() ?? 0) + 1) ** 2) / 2)}💰)
       </button>
     </div>
   );

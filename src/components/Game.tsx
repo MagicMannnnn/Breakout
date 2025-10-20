@@ -89,7 +89,7 @@ const Game = () => {
           className="game-canvas"
         />
         <h2>
-          Score: {score}, Balls: {balls}
+          Score: {score}, Balls: {balls}, Max Damage: {manager?.getBallDamage()}
         </h2>
       </div>
 

@@ -16,6 +16,7 @@ export default class GameManager {
   ctx: CanvasRenderingContext2D;
 
   score: number = -1;
+  private iterations: number = 1;
 
   // React is the source of truth, but we keep mirrors here
   ballsAmount: number = 1;
@@ -158,10 +159,7 @@ export default class GameManager {
   }
 
   increaseBallSpeed(): void {
-    for (const ball of this.ballManager.balls) {
-      ball.vx *= 1.5;
-      ball.vy *= 1.5;
-    }
+    this.iterations++;
   }
 
   update(dt: number): void {
@@ -201,20 +199,23 @@ export default class GameManager {
       this.spawnedThisRound++;
     }
 
-    // Update world
-    this.ballManager.update(dt);
-    this.blockManager.update(this.ballManager.balls, this.ctx, this.powerUpManager);
-    this.ballManager.draw();
+    for (let i: number = 0; i < this.iterations; i++) {
+        // Update world
+      this.ballManager.update(dt);
+      this.blockManager.update(this.ballManager.balls, this.ctx, this.powerUpManager);
+      this.ballManager.draw();
 
-    // Power-ups
-    const collected = this.powerUpManager.update(this.ballManager.balls);
-    this.powerUpManager.draw(this.ctx);
+      // Power-ups
+      const collected = this.powerUpManager.update(this.ballManager.balls);
+      this.powerUpManager.draw(this.ctx);
 
-    // If update() returns a boolean meaning "collected something", award 1 coin.
-    // If your PowerUpManager returns a count instead, replace with: this.addCoins(collected);
-    if (collected) {
-      this.addCoins(1);
+      // If update() returns a boolean meaning "collected something", award 1 coin.
+      // If your PowerUpManager returns a count instead, replace with: this.addCoins(collected);
+      if (collected) {
+        this.addCoins(1);
+      }
     }
+    
 
     // Round / game over
     if (this.fired && this.ballManager.balls.length === 0 && !this.blockManager.finished) {
@@ -297,6 +298,7 @@ export default class GameManager {
   nextRound(): void {
     if (!this.fired) return;
     this.score++;
+    this.iterations = 1;
     this.addCoins(1);
     this.onScoreChange?.(this.score);
     this.fired = false;
