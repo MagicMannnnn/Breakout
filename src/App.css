@@ -2,12 +2,16 @@ body {
     overflow: hidden;
 }
 
+h2, h3 {
+  font-size: 0.7rem;
+}
+
 /* Full-page layout: three columns via flex */
 .game-wrapper {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  justify-content: center; /* left | center | right */
+  align-items: center;
+  justify-content: flex-start; /* left | center | right */
   gap: 1.25rem;
 
   height: 100vh;
@@ -23,7 +27,7 @@ body {
 .sidebar {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: left;
   justify-content: center;
   gap: 1rem;
   z-index: 1;
@@ -60,7 +64,7 @@ body {
 .game-canvas {
   border: 1px solid rgb(113, 113, 113);
   background: #4b4b4bff;
-  width: 75vw;
+  width: 70vw;
   height: 80vh;
   display: block;
 }
@@ -78,7 +82,6 @@ body {
   justify-content: center;
   gap: 1rem;
   z-index: 1;
-  min-width: 160px;
   max-width: 18vw;
   text-align: center;       /* centers the <h2> text too */
 }

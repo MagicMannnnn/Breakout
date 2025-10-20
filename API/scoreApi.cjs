@@ -62,7 +62,7 @@ loadScoresFromCSV();
 // Score Endpoints (unchanged)
 // ==========================
 
-app.post('/saveScore', (req, res) => {
+app.post('/api/saveScore', (req, res) => {
   const { username, score } = req.body;
   if (!username || typeof score !== 'number') {
     return res.status(400).json({ error: 'Invalid input' });
@@ -123,7 +123,7 @@ function checkFilter(filter, element) {
   }
 }
 
-app.get('/scores', (req, res) => {
+app.get('/api/scores', (req, res) => {
   const start = parseInt(req.query.start, 10);
   const end = parseInt(req.query.end, 10);
   const sortType = parseInt(req.query.sortType, 10);
@@ -153,7 +153,7 @@ app.get('/scores', (req, res) => {
   }
 });
 
-app.get('/scoresFromUsername', (req, res) => {
+app.get('/api/scoresFromUsername', (req, res) => {
   const itemsPerPage = parseInt(req.query.itemsPerPage, 10);
   const username = req.query.username;
 
@@ -179,7 +179,7 @@ app.get('/scoresFromUsername', (req, res) => {
 });
 
 
-app.get('/scoreFromUsername', (req, res) => {
+app.get('/api/scoreFromUsername', (req, res) => {
   const username = req.query.username;
 
   if (username?.trim()) {
@@ -192,7 +192,7 @@ app.get('/scoreFromUsername', (req, res) => {
 });
 
 
-app.get('/entries', (req, res) => {
+app.get('/api/entries', (req, res) => {
   const filter = 0;
   res.json(scores.filter((i) => checkFilter(filter, i)).length);
 });
